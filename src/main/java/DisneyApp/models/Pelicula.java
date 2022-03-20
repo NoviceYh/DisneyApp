@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,12 @@ public class Pelicula {
     private Date releaseDate;
     
     private Integer qualification;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "peliculas_generos", joinColumns = 
+            @JoinColumn(name = "movie_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "gender_id", nullable = false))
+    private Set<Genero> genders;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "peliculas_personajes", joinColumns = 

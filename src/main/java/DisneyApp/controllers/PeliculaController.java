@@ -25,11 +25,23 @@ public class PeliculaController {
     @Autowired
     private PeliculaService peliculaService;
     
-    @GetMapping
+    @GetMapping()
     public List<PeliculaImageTitleDateDTO> movies(){
         List<PeliculaImageTitleDateDTO> peliculas = peliculaService.movies();
         return peliculas;
     }
+    
+    @GetMapping(params = "order")
+    public List<PeliculaDTO> moviesOrder(@RequestParam(name = "order")String order){
+        List<PeliculaDTO> peliculas = peliculaService.orderBy(order);
+        return peliculas;
+    }
+    
+//    @GetMapping(params = "genderId")
+//    public List<PeliculaDTO> orderByGenderId(@RequestParam(name = "genderId")Long genderId){
+//        List<PeliculaDTO> peliculas = peliculaService.orderByGenderId(genderId);
+//        return peliculas;
+//    }
     
     @GetMapping("/details")
     public List<PeliculaDTO> moviesDetails(){
@@ -37,11 +49,6 @@ public class PeliculaController {
         return peliculas;
     }
     
-//    @GetMapping(params = "title")
-//    public ResponseEntity<PeliculaDTO> findByTitle(@RequestParam(name = "title") String title){
-//        PeliculaDTO peliculaDTO = peliculaService.findByTitle(title);
-//        return new ResponseEntity<>(peliculaDTO,HttpStatus.OK);
-//    }
     @GetMapping(params = "title")
     public List<PeliculaDTO> findByTitle(@RequestParam(name = "title") String title){
         List<PeliculaDTO> peliculasDTO = peliculaService.findByTitle(title);

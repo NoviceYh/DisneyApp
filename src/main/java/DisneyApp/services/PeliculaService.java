@@ -10,6 +10,8 @@ public interface PeliculaService {
     
     public List<PeliculaDTO> findAll();
     
+    public List<PeliculaDTO> orderBy(String order );
+    
     public List<PeliculaImageTitleDateDTO> movies();
     
     public PeliculaDTO createMovie(PeliculaDTO peliculaDTO);
@@ -19,6 +21,8 @@ public interface PeliculaService {
     public void deleteMovie(Long id);
     
     public PeliculaDTO updateMovie(Long id, PeliculaDTO peliculaDTO);
+    
+//    public List<PeliculaDTO> orderByGenderId(Long genderId);
     
 //    public PeliculaDTO findByTitle(String title);
     

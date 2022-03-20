@@ -8,10 +8,13 @@ import DisneyApp.models.Personaje;
 import DisneyApp.repositories.PeliculaRepository;
 import DisneyApp.repositories.PersonajeRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -110,12 +113,6 @@ public class PeliculaServiceImpl implements PeliculaService{
         return peliculaNueva;
     }
 
-//    @Override
-//    public PeliculaDTO findByTitle(String title) {
-//        Pelicula pelicula = peliculaRepository.findByTitle("%"+title+"%");
-//        PeliculaDTO peliculaDTO = mapearDTO(pelicula);
-//        return peliculaDTO;
-//    }
     @Override
     public List<PeliculaDTO> findByTitle(String title) {
         List<Pelicula> peliculas = peliculaRepository.findByTitle("%"+title+"%");
@@ -123,5 +120,31 @@ public class PeliculaServiceImpl implements PeliculaService{
                 .map(pelicula -> mapearDTO(pelicula)).collect(Collectors.toList());
         return peliculasDTO;
     }
+
+    @Override
+    public List<PeliculaDTO> orderBy(String order) {
+        List<Pelicula> peliculas;
+        if (order.equalsIgnoreCase("DESC")) {
+            peliculas = peliculaRepository.orderByDateReleaseDESC(order);
+            List<PeliculaDTO> movies = peliculas.stream()
+                    .map(pelicula -> mapearDTO(pelicula)).collect(Collectors.toList());
+            return movies;
+        }else{
+            peliculas = peliculaRepository.orderByDateReleaseASC(order);
+            List<PeliculaDTO> movies = peliculas.stream()
+                    .map(pelicula -> mapearDTO(pelicula)).collect(Collectors.toList());
+            return movies;
+        }        
+    }
+
+//    @Override
+//    public List<PeliculaDTO> orderByGenderId(Long genderId) {
+//        List<Pelicula> peliculas = peliculaRepository.orderByGenderId(genderId);
+//        List<PeliculaDTO> movies = peliculas.stream()
+//                    .map(pelicula -> mapearDTO(pelicula)).collect(Collectors.toList());
+//            return movies;
+//    }
+
+    
     
 }
