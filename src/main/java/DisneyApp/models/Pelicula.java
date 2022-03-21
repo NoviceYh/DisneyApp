@@ -1,4 +1,3 @@
-
 package DisneyApp.models;
 
 import java.util.Date;
@@ -12,38 +11,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 @Table(name = "peliculas")
 public class Pelicula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private byte[] image;
-    
+
     private String title;
-    
-    @DateTimeFormat
+
     private Date releaseDate;
-    
+
     private Integer qualification;
-    
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "peliculas_generos", joinColumns = 
-            @JoinColumn(name = "movie_id", nullable = false),
+    @JoinTable(name = "peliculas_generos", joinColumns
+            = @JoinColumn(name = "movie_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "gender_id", nullable = false))
     private Set<Genero> genders;
-    
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "peliculas_personajes", joinColumns = 
-            @JoinColumn(name = "movie_id", nullable = false),
+    @JoinTable(name = "peliculas_personajes", joinColumns
+            = @JoinColumn(name = "movie_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false))
     private Set<Personaje> characters;
 
@@ -57,6 +55,5 @@ public class Pelicula {
 
     public Pelicula() {
     }
-    
-    
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,18 +29,21 @@ public class GeneroController {
         return generos;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<GeneroDTO> create(@RequestBody GeneroDTO generoDTO) {
         GeneroDTO genero = generoService.create(generoDTO);
         return new ResponseEntity<>(genero, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteGender(@PathVariable(name = "id") Long id) {
         generoService.delete(id);
         return new ResponseEntity<>("El genero ha sido eliminado con exito!", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<GeneroDTO> create(
             @PathVariable(name = "id") Long id, @RequestBody GeneroDTO generoDTO) {

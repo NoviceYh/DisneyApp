@@ -1,16 +1,16 @@
-
 package DisneyApp.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class GeneroDTO {
-    
+
     private Long id;
-    
+
     private String name;
-    
+
     private byte[] image;
 
     public GeneroDTO() {
@@ -21,5 +21,5 @@ public class GeneroDTO {
         this.name = name;
         this.image = image;
     }
-    
+
 }

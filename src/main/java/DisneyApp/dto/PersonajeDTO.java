@@ -1,32 +1,26 @@
-
 package DisneyApp.dto;
 
 import DisneyApp.models.Pelicula;
 import java.util.Set;
+//import javax.validation.constraints.NotEmpty;
+//import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class PersonajeDTO {
-    
+
     private Long id;
-    
-    
+
     private byte[] image;
-    
-    
     private String name;
-    
-    
     private Integer age;
-    
-    
     private String weight;
-    
     private String history;
 
     private Set<Pelicula> peliculas;
-    
+
     public PersonajeDTO() {
     }
 
@@ -49,6 +43,4 @@ public class PersonajeDTO {
         this.peliculas = peliculas;
     }
 
-    
-    
 }

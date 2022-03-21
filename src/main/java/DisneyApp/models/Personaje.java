@@ -1,6 +1,6 @@
-
 package DisneyApp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,32 +14,35 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+@Entity
+@Getter
+@Setter
 @Table(name = "personajes")
 public class Personaje {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "image")
     private byte[] image;
-    
+
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "age", nullable = false)
     private Integer age;
-    
+
     @Column(name = "weight", nullable = false)
     private String weight;
-    
+
     @Column(name = "history", nullable = false)
     private String history;
-    
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST},mappedBy = "characters")
+
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "characters")
     private Set<Pelicula> movies;
-    
+
     public Personaje() {
     }
 
@@ -60,7 +63,4 @@ public class Personaje {
         this.movies = movies;
     }
 
-   
-    
-    
 }
