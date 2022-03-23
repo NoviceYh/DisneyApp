@@ -21,6 +21,7 @@ Desarrollar una API para explorar el mundo de Disney, la cual permitirá conocer
 - MYSQL
 - LOMBOK
 - SECURITY
+- JAVA MAIL SENDER
 
 #### POSTMAN:
 *Link hacia la documentacion en Postman:* [Aqui!](https://documenter.getpostman.com/view/20065654/UVsQr3ch "Aqui!")
