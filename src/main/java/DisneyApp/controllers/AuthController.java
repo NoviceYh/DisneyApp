@@ -6,6 +6,7 @@ import DisneyApp.models.Rol;
 import DisneyApp.models.Usuario;
 import DisneyApp.repositories.RolRepository;
 import DisneyApp.repositories.UsuarioRepository;
+import DisneyApp.services.MailService;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private MailService mailService;
 
     /*
 	@Autowired
@@ -74,6 +78,8 @@ public class AuthController {
         usuario.setRoles(Collections.singleton(roles));
 
         usuarioRepository.save(usuario);
+        mailService.sendMail("company@noreply.com", usuario.getEmail(), "DisneyApp - Una aplicación de Disney!", "¡"+usuario.getNombre()+" te damos la bienvenida a nuestra familia!");
+        
         return new ResponseEntity<>("Usuario registrado exitosamente", HttpStatus.OK);
     }
 
